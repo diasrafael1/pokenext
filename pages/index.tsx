@@ -1,14 +1,7 @@
 import Image from "next/image";
+import { IDataPokemon, Pokemon } from "../interfaces/Pokemon";
 import styles from "../styles/Home.module.css";
-
-interface Pokemon {
-  id?: number;
-  name: string;
-  url: string;
-}
-interface IDataPokemon {
-  results: Pokemon[];
-}
+import Card from "./components/Card";
 
 export async function getStaticProps() {
   const maxPokemons = 251;
@@ -42,7 +35,11 @@ export default function Home({ pokemons }: { pokemons: Pokemon[] }) {
           alt="PokéNext"
         />
       </div>
-      <div className={styles.pokemon_container}></div>
+      <div className={styles.pokemon_container}>
+        {pokemons.map((pokemon) => (
+          <Card key={pokemon.id} pokemon={pokemon} />
+        ))}
+      </div>
     </>
   );
 }
