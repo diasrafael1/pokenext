@@ -1,12 +1,9 @@
 import { GetStaticPropsContext } from "next";
 import { IDataPokemon, Pokemon } from "../../interfaces/Pokemon";
+import { requestPokemons } from "../../util/requestPokemons";
 
 export const getStaticPaths = async () => {
-  const maxPokemons = 251;
-  const api = "https://pokeapi.co/api/v2/pokemon";
-
-  const res = await fetch(`${api}/?limit=${maxPokemons}`);
-  const data: IDataPokemon = await res.json();
+  const data: IDataPokemon = await requestPokemons();
 
   const paths = data.results.map((pokemon, index) => {
     return {

@@ -2,13 +2,10 @@ import Image from "next/image";
 import { IDataPokemon, Pokemon } from "../interfaces/Pokemon";
 import styles from "../styles/Home.module.css";
 import Card from "../components/Card";
+import { requestPokemons } from "../util/requestPokemons";
 
 export async function getStaticProps() {
-  const maxPokemons = 251;
-  const api = "https://pokeapi.co/api/v2/pokemon";
-
-  const res = await fetch(`${api}/?limit=${maxPokemons}`);
-  const data: IDataPokemon = await res.json();
+  const data: IDataPokemon = await requestPokemons();
 
   data.results.forEach((item, index) => {
     item.id = index + 1;
